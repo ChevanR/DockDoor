@@ -197,7 +197,8 @@ private class WindowSwitchingCoordinator {
         uiRenderingTask?.cancel()
         uiRenderingTask = Task { @MainActor in
             if !Defaults[.instantWindowSwitcher] {
-                try? await Task.sleep(nanoseconds: 100_000_000)
+                let delay = max(0, Defaults[.windowSwitcherOpenDelay])
+                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
             }
             await renderWindowSwitcherUI(
                 previewCoordinator: previewCoordinator,

@@ -383,6 +383,15 @@ enum SettingsSearchCatalog {
             icon: "bolt"
         ),
         SettingsSearchItem(
+            id: "windowSwitcher.openDelay",
+            title: String(localized: "Window Switcher Open Delay"),
+            description: String(localized: "How long to hold the shortcut before the switcher appears. A quick tap still switches without showing it."),
+            keywords: ["delay", "open", "flicker", "speed", "timing"],
+            tab: "WindowSwitcher",
+            section: String(localized: "Behavior"),
+            icon: "timer"
+        ),
+        SettingsSearchItem(
             id: "windowSwitcher.releaseToSelect",
             title: String(localized: "Release initializer key to select window"),
             keywords: ["release", "select", "key"],

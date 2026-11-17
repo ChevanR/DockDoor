@@ -5,6 +5,7 @@ import SwiftUI
 struct WindowSwitcherBehaviorSettingsView: View {
     @Default(.enableWindowSwitcher) var enableWindowSwitcher
     @Default(.instantWindowSwitcher) var instantWindowSwitcher
+    @Default(.windowSwitcherOpenDelay) var windowSwitcherOpenDelay
     @Default(.enableWindowSwitcherSearch) var enableWindowSwitcherSearch
     @Default(.focusSearchOnWindowSwitcherOpen) var focusSearchOnWindowSwitcherOpen
     @Default(.searchFuzziness) var searchFuzziness
@@ -78,6 +79,20 @@ struct WindowSwitcherBehaviorSettingsView: View {
             Toggle(isOn: $instantWindowSwitcher) { Text("Show Window Switcher instantly") }
                 .settingsSearchTarget("windowSwitcher.instant")
                 .settingsAnnotation("May feel snappier but can cause flickering if you quickly release the key.")
+
+            if !instantWindowSwitcher {
+                SettingsSliderRow(
+                    title: "Window Switcher Open Delay",
+                    value: $windowSwitcherOpenDelay,
+                    range: 0 ... 0.5,
+                    defaultValue: 0.1,
+                    unit: " s",
+                    step: 0.05,
+                    decimals: 2
+                )
+                .settingsSearchTarget("windowSwitcher.openDelay")
+                .settingsAnnotation("How long to hold the shortcut before the switcher appears. A quick tap still switches without showing it.")
+            }
 
             Toggle(isOn: Binding(
                 get: { !preventSwitcherHide },

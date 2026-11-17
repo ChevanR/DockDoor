@@ -37,6 +37,7 @@ extension Defaults.Keys {
     static let anchorDockPreviewPosition = Key<Bool>("anchorDockPreviewPosition", default: true)
     static let preventDockHide = Key<Bool>("preventDockHide", default: true)
     static let preventSwitcherHide = Key<Bool>("preventSwitcherHide", default: false)
+    static let enableNumberKeySelection = Key<Bool>("enableNumberKeySelection", default: false)
     static let requireShiftTabToGoBack = Key<Bool>("requireShiftTabToGoBack", default: false)
     static let switcherBackwardKeyCode = Key<UInt16>("switcherBackwardKeyCode", default: 56)
     static let shouldHideOnDockItemClick = Key<Bool>("shouldHideOnDockItemClick", default: false)

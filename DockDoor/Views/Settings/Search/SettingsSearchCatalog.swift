@@ -391,6 +391,15 @@ enum SettingsSearchCatalog {
             icon: "hand.raised"
         ),
         SettingsSearchItem(
+            id: "windowSwitcher.numberKeySelection",
+            title: String(localized: "Select windows with number keys"),
+            description: String(localized: "While holding the switcher shortcut, press 1–9 to switch straight to that window. Each window shows its number."),
+            keywords: ["number", "digit", "quick", "jump", "shortcut", "1", "9"],
+            tab: "WindowSwitcher",
+            section: String(localized: "Behavior"),
+            icon: "number"
+        ),
+        SettingsSearchItem(
             id: "windowSwitcher.startOnSecond",
             title: String(localized: "Start on second window"),
             description: String(localized: "Highlight the second window instead of the first when opening."),

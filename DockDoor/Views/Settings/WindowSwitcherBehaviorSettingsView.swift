@@ -9,6 +9,7 @@ struct WindowSwitcherBehaviorSettingsView: View {
     @Default(.focusSearchOnWindowSwitcherOpen) var focusSearchOnWindowSwitcherOpen
     @Default(.searchFuzziness) var searchFuzziness
     @Default(.preventSwitcherHide) var preventSwitcherHide
+    @Default(.enableNumberKeySelection) var enableNumberKeySelection
     @Default(.enableMouseHoverInSwitcher) var enableMouseHoverInSwitcher
     @Default(.mouseHoverAutoScrollSpeed) var mouseHoverAutoScrollSpeed
     @Default(.includeHiddenWindowsInSwitcher) var includeHiddenWindowsInSwitcher
@@ -84,6 +85,10 @@ struct WindowSwitcherBehaviorSettingsView: View {
                 set: { preventSwitcherHide = !$0 }
             )) { Text("Release initializer key to select window") }
                 .settingsSearchTarget("windowSwitcher.releaseToSelect")
+
+            Toggle(isOn: $enableNumberKeySelection) { Text("Select windows with number keys") }
+                .settingsSearchTarget("windowSwitcher.numberKeySelection")
+                .settingsAnnotation("While holding the switcher shortcut, press 1–9 to switch straight to that window. Each window shows its number.")
 
             Toggle(isOn: $useClassicWindowOrdering) { Text("Start on second window") }
                 .settingsSearchTarget("windowSwitcher.startOnSecond")

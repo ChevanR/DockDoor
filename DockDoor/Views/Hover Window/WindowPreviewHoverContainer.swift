@@ -48,6 +48,15 @@ private struct SelectionReader<Content: View>: View {
 }
 
 struct WindowPreviewHoverContainer: View {
+    private func numberKeyLabel(for index: Int) -> Int? {
+        guard previewStateCoordinator.windowSwitcherActive,
+              Defaults[.enableNumberKeySelection],
+              let position = previewStateCoordinator.filteredWindowIndices().firstIndex(of: index),
+              position < 9
+        else { return nil }
+        return position + 1
+    }
+
     let appName: String
     let onWindowTap: (() -> Void)?
     let dockPosition: DockPosition
@@ -1190,7 +1199,8 @@ struct WindowPreviewHoverContainer: View {
                     appearance: appearance,
                     backgroundAppearance: backgroundAppearance,
                     focusedWindowID: previewStateCoordinator.focusedWindowID,
-                    spaceNumber: previewStateCoordinator.desktopNumber(for: windowInfo)
+                    spaceNumber: previewStateCoordinator.desktopNumber(for: windowInfo),
+                    numberKeyLabel: numberKeyLabel(for: index)
                 )
                 .equatable()
             } else {
@@ -1215,7 +1225,8 @@ struct WindowPreviewHoverContainer: View {
                     appearance: appearance,
                     backgroundAppearance: backgroundAppearance,
                     focusedWindowID: previewStateCoordinator.focusedWindowID,
-                    spaceNumber: previewStateCoordinator.desktopNumber(for: windowInfo)
+                    spaceNumber: previewStateCoordinator.desktopNumber(for: windowInfo),
+                    numberKeyLabel: numberKeyLabel(for: index)
                 )
                 .equatable()
                 .gesture(

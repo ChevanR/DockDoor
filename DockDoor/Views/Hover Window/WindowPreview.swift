@@ -160,6 +160,7 @@ struct WindowPreview: View, Equatable {
     let backgroundAppearance: BackgroundAppearance
     let focusedWindowID: CGWindowID?
     var spaceNumber: Int? = nil
+    var numberKeyLabel: Int? = nil
 
     @State private var isHoveringOverDockPeekPreview = false
     @State private var isHoveringOverWindowSwitcherPreview = false
@@ -178,6 +179,7 @@ struct WindowPreview: View, Equatable {
             && l.backgroundAppearance == r.backgroundAppearance
             && l.focusedWindowID == r.focusedWindowID
             && l.spaceNumber == r.spaceNumber
+            && l.numberKeyLabel == r.numberKeyLabel
     }
 
     private var isActiveWindow: Bool {
@@ -278,6 +280,16 @@ struct WindowPreview: View, Equatable {
                     backgroundAppearance: backgroundAppearance
                 )
                 .padding(8)
+            }
+        }
+        .overlay(alignment: .bottomLeading) {
+            if let numberKeyLabel, windowSwitcherActive, !skeletonMode {
+                Text(numberKeyLabel, format: .number)
+                    .font(.system(size: 13, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .frame(minWidth: 22, minHeight: 22)
+                    .materialPill(backgroundAppearance: backgroundAppearance)
+                    .padding(8)
             }
         }
         .dynamicWindowFrame(

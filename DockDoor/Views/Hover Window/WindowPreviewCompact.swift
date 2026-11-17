@@ -15,6 +15,7 @@ struct WindowPreviewCompact: View, Equatable {
     let backgroundAppearance: BackgroundAppearance
     let focusedWindowID: CGWindowID?
     var spaceNumber: Int? = nil
+    var numberKeyLabel: Int? = nil
 
     @State private var isHovering = false
 
@@ -30,6 +31,7 @@ struct WindowPreviewCompact: View, Equatable {
             && l.backgroundAppearance == r.backgroundAppearance
             && l.focusedWindowID == r.focusedWindowID
             && l.spaceNumber == r.spaceNumber
+            && l.numberKeyLabel == r.numberKeyLabel
     }
 
     /// Checks if this window is the currently active (focused) window on the system and adds a border if so.
@@ -129,6 +131,14 @@ struct WindowPreviewCompact: View, Equatable {
             }
 
             Spacer(minLength: 0)
+
+            if let numberKeyLabel, windowSwitcherActive {
+                Text(numberKeyLabel, format: .number)
+                    .font(appearance.compactModeItemSize.secondaryFont.weight(.bold))
+                    .monospacedDigit()
+                    .frame(minWidth: 18)
+                    .materialPill(backgroundAppearance: backgroundAppearance)
+            }
 
             if let spaceNumber {
                 SpaceNumberBadge(

@@ -1259,6 +1259,24 @@ class KeybindHelper {
         }
 
         if previewIsCurrentlyVisible,
+           Defaults[.enableNumberKeySelection],
+           previewCoordinator.windowSwitcherCoordinator.windowSwitcherActive,
+           !snapshot.isSearchFocused,
+           let number = Self.numberKeyPosition(for: keyCode),
+           isSwitcherModifierKeyPressed || !Defaults[.enableWindowSwitcherSearch]
+        {
+            let visible = previewCoordinator.windowSwitcherCoordinator.filteredWindowIndices()
+            guard number <= visible.count else { return (true, nil) }
+            let target = visible[number - 1]
+            return (true, { @MainActor in
+                self.previewCoordinator.windowSwitcherCoordinator.setIndex(to: target)
+                await self.makeEnterSelectionTask()()
+                self.switcherSessionActive = false
+                self.hasProcessedModifierRelease = true
+            })
+        }
+
+        if previewIsCurrentlyVisible,
            previewCoordinator.windowSwitcherCoordinator.windowSwitcherActive,
            Defaults[.enableWindowSwitcherSearch],
            keyCode == Int64(Defaults[.searchTriggerKey]),
@@ -1331,6 +1349,20 @@ class KeybindHelper {
         }
 
         return (false, nil)
+    }
+
+    private static let numberKeyCodes: [Int] = [kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kVK_ANSI_4, kVK_ANSI_5,
+                                                kVK_ANSI_6, kVK_ANSI_7, kVK_ANSI_8, kVK_ANSI_9]
+    private static let keypadNumberKeyCodes: [Int] = [kVK_ANSI_Keypad1, kVK_ANSI_Keypad2, kVK_ANSI_Keypad3,
+                                                      kVK_ANSI_Keypad4, kVK_ANSI_Keypad5, kVK_ANSI_Keypad6,
+                                                      kVK_ANSI_Keypad7, kVK_ANSI_Keypad8, kVK_ANSI_Keypad9]
+
+    private static func numberKeyPosition(for keyCode: Int64) -> Int? {
+        let code = Int(keyCode)
+        if let index = numberKeyCodes.firstIndex(of: code) ?? keypadNumberKeyCodes.firstIndex(of: code) {
+            return index + 1
+        }
+        return nil
     }
 
     private func isPreviewShortcutModifierHeld(_ flags: CGEventFlags) -> Bool {

@@ -116,6 +116,7 @@ extension Defaults.Keys {
     static let gradientColorPalette = Key<GradientColorPaletteSettings>("gradientColorPalette", default: .init())
     static let enableWindowSwitcher = Key<Bool>("enableWindowSwitcher", default: true)
     static let instantWindowSwitcher = Key<Bool>("instantWindowSwitcher", default: false)
+    static let blacklistAppliesOutsideFullscreen = Key<Bool>("blacklistAppliesOutsideFullscreen", default: false)
     static let enableDockPreviews = Key<Bool>("enableDockPreviews", default: true)
     static let dockPreviewActivationMode = Key<DockPreviewActivationMode>("dockPreviewActivationMode", default: .hover)
     static let dockPreviewActivationModifier = Key<DockPreviewActivationModifier>("dockPreviewActivationModifier", default: .option)

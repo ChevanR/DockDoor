@@ -6,6 +6,7 @@ struct WindowSwitcherKeybindSection: View {
     @Default(.enableWindowSwitcherSearch) var enableWindowSwitcherSearch
     @Default(.searchTriggerKey) var searchTriggerKey
     @Default(.fullscreenAppBlacklist) var fullscreenAppBlacklist
+    @Default(.blacklistAppliesOutsideFullscreen) var blacklistAppliesOutsideFullscreen
     @Default(.alternateKeybindKey) var alternateKeybindKey
     @Default(.alternateKeybindMode) var alternateKeybindMode
     @Default(.alternateKeybindModifierFlags) var alternateKeybindModifierFlags
@@ -115,6 +116,12 @@ struct WindowSwitcherKeybindSection: View {
             }
             .settingsSearchTarget("gestures.arrowPassthrough")
             .settingsAnnotation("When enabled, Ctrl+Arrow keys will be passed through to the system instead of navigating the switcher. Useful for Spaces switching.")
+
+            Toggle(isOn: $blacklistAppliesOutsideFullscreen) {
+                Text("Apply App Blacklist Outside Fullscreen")
+            }
+            .settingsSearchTarget("gestures.blacklistOutsideFullscreen")
+            .settingsAnnotation("Apps in the blacklist below also keep the window switcher shortcuts when they're not fullscreen, such as a VM or remote desktop in a window.")
         }
 
         SettingsListSection(

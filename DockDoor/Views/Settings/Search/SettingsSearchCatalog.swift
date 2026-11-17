@@ -1567,6 +1567,15 @@ enum SettingsSearchCatalog {
             icon: "magnifyingglass"
         ),
         SettingsSearchItem(
+            id: "gestures.blacklistOutsideFullscreen",
+            title: String(localized: "Apply App Blacklist Outside Fullscreen"),
+            description: String(localized: "Apps in the blacklist below also keep the window switcher shortcuts when they're not fullscreen, such as a VM or remote desktop in a window."),
+            keywords: ["blacklist", "fullscreen", "windowed", "vm", "remote", "passthrough"],
+            tab: "Keybinds",
+            section: String(localized: "Window Switcher Shortcuts"),
+            icon: "rectangle.on.rectangle"
+        ),
+        SettingsSearchItem(
             id: "gestures.fullscreenBlacklist",
             title: String(localized: "Fullscreen App Blacklist"),
             description: String(localized: "Apps in this list will not respond to window switcher shortcuts when in fullscreen mode."),

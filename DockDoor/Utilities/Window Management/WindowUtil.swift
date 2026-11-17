@@ -1771,6 +1771,7 @@ extension WindowUtil {
         }
         guard isInBlacklist else { return false }
 
+        if Defaults[.blacklistAppliesOutsideFullscreen] { return true }
         return isAppInFullscreen(frontmostApp)
     }
 
